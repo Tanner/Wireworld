@@ -2,9 +2,6 @@ const CELL_SIZE = 10;
 
 const CELL_SPACING = 5;
 
-const CELL_ROWS = 40;
-const CELL_COLS = 40;
-
 State = {
 	EMPTY : 0,
 	ELECTRON_HEAD : 1,
@@ -24,9 +21,12 @@ window.onload = function() {
 
 	screen = Raphael("canvas", width, height);
 
-	cells = new Array(CELL_ROWS);
+	var rows = Math.floor(height / (CELL_SIZE + CELL_SPACING));
+	var cols = Math.floor(width / (CELL_SIZE + CELL_SPACING));
+
+	cells = new Array(rows);
 	for (var i = 0; i < cells.length; i++) {
-		cells[i] = new Array(CELL_COLS);
+		cells[i] = new Array(cols);
 		
 		for (var j = 0; j < cells[i].length; j++) {
 			cells[i][j] = new Cell(i, j, State.CONDUCTOR);
