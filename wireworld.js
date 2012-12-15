@@ -68,13 +68,25 @@ function Cell(row, column, state) {
 			this.entity_ = screen.rect(paintX, paintY, CELL_SIZE, CELL_SIZE, 0);
 			this.entity_.attr({fill: "#000", stroke: "none"});
 
-			var cell = this;
+			(function(cell) {
+				cell.entity_.node.onclick = function() {
+					cell.state_ = (cell.state_ + 1) % Object.keys(State).length;
 
-			this.entity_.node.onclick = function() {
-				cell.state_ = (cell.state_ + 1) % Object.keys(State).length;
+					cell.draw(screen);
+				};
 
-				cell.draw(screen);
-			};
+				cell.entity_.node.onmouseover = function() {
+					if (cell.state_ == State.EMPTY) {
+						cell.entity_.attr({fill: "#444", stroke: "none"});
+					}
+				};
+
+				cell.entity_.node.onmouseout = function() {
+					if (cell.state_ == State.EMPTY) {
+						cell.entity_.attr({fill: "#000", stroke: "none"});
+					}
+				};
+			})(this);
 		}
 
 		var color = "#000";
