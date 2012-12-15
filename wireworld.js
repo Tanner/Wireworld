@@ -108,6 +108,21 @@ function step() {
 	}
 }
 
+function trash() {
+	for (var row = 0; row < cells.length; row++) {
+		for (var column = 0; column < cells[row].length; column++) {
+			var cell = cells[row][column];
+
+			if (cell.currentState_ != State.EMPTY || cell.nextState_ != State.EMPTY) {
+				cell.currentState_ = State.EMPTY;
+				cell.nextState_ = cell.currentState_;
+
+				cell.draw(screen);
+			}
+		}
+	}
+}
+
 function render() {
 	screen.clear();
 	
