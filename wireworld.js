@@ -4,9 +4,9 @@ const CELL_SPACING = 5;
 
 State = {
 	EMPTY : 0,
-	ELECTRON_HEAD : 1,
-	ELECTRON_TAIL : 2,
-	CONDUCTOR : 3
+	CONDUCTOR : 1,
+	ELECTRON_HEAD : 2,
+	ELECTRON_TAIL : 3,
 }
 
 var cells;
