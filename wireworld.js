@@ -14,20 +14,15 @@ State = {
 
 var cells;
 
-var canvas;
+var screen, width, height;
 
-function init() {
-	canvas = document.getElementById("screen");
+window.onload = function() {
+	canvas = document.getElementById("canvas");
 
-	canvas.width = CELL_COLS * CELL_SIZE + (CELL_COLS + 1) * CELL_SPACING;
-	canvas.height = CELL_ROWS * CELL_SIZE + (CELL_ROWS + 1) * CELL_SPACING;
+	width = canvas.clientWidth;
+	height = canvas.clientHeight;
 
-	canvas.style.width = canvas.width + "px";
-	canvas.style.height = canvas.height + "px";
-
-	var wrapper = document.getElementById("wrapper");
-	wrapper.style.marginTop = "-" + canvas.height / 2 + "px";
-	wrapper.style.marginLeft = "-" + canvas.width / 2 + "px";
+	screen = Raphael("canvas", width, height);
 
 	cells = new Array(CELL_ROWS);
 	for (var i = 0; i < cells.length; i++) {
@@ -42,21 +37,17 @@ function init() {
 }
 
 function update() {
-	if (canvas.getContext) {
-		var context = canvas.getContext("2d");
-		
-		render(context);
-	}
+	render();
 }
 
-function render(context) {
-	context.clearRect(0, 0, window.innerHeight, window.innerWidth);
+function render() {
+	screen.clear();
 	
 	for (var row = 0; row < CELL_ROWS; row++) {
 		for (var column = 0; column < CELL_COLS; column++) {
 			var cell = cells[row][column];
 
-			cell.draw(context);
+			cell.draw(screen);
 		}
 	}
 }
@@ -67,18 +58,27 @@ function Cell(row, column, state) {
 	this.row_ = row;
 	this.column_ = column;
 
-	this.draw = function(context) {
-		if (this.state_ == State.ELECTRON_HEAD) {
-			context.fillStyle = "#F00";
-		} else if (this.state_ == State.ELECTRON_TAIL) {
-			context.fillStyle = "#00F";
-		} else if (this.state_ == State.CONDUCTOR) {
-			context.fillStyle = "#003107";
+	this.entity_ = null;
+
+	this.draw = function(screen) {
+		if (this.entity_ == null) {
+			var paintX = this.column_ * CELL_SIZE + (this.column_ + 1) * CELL_SPACING;
+			var paintY = this.row_ * CELL_SIZE + (this.row_ + 1) * CELL_SPACING;
+
+			this.entity_ = screen.rect(paintX, paintY, CELL_SIZE, CELL_SIZE, 0);
+			this.entity_.attr({fill: "#000", stroke: "none"});
 		}
 
-		var paintX = this.column_ * CELL_SIZE + (this.column_ + 1) * CELL_SPACING;
-		var paintY = this.row_ * CELL_SIZE + (this.row_ + 1) * CELL_SPACING;
+		var color = "#000";
 
-		context.fillRect(paintX, paintY, CELL_SIZE, CELL_SIZE);
+		if (this.state_ == State.ELECTRON_HEAD) {
+			color = "#F00";
+		} else if (this.state_ == State.ELECTRON_TAIL) {
+			color = "#00F";
+		} else if (this.state_ == State.CONDUCTOR) {
+			color = "#003107";
+		}
+
+		this.entity_.attr({fill: color, stroke: "none"});
 	}
 }
