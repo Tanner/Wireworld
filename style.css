@@ -25,3 +25,20 @@ body, html {
 
 	border: 1px solid #333;
 }
+
+#controls {
+	margin-top: 10px;
+}
+
+button {
+	display: inline-block;
+
+	padding: 4px 12px;
+	margin-bottom: 0;
+
+	font-size: 14px;
+	line-height: 20px;
+
+	color: #333;
+	text-align: center;
+}
