@@ -1,7 +1,5 @@
 const CELL_SIZE = 10;
 
-const CELL_SPACING = 5;
-
 State = {
 	EMPTY : 0,
 	CONDUCTOR : 1,
@@ -22,8 +20,8 @@ window.onload = function() {
 
 	screen = Raphael("canvas", width, height);
 
-	var rows = Math.floor(height / (CELL_SIZE + CELL_SPACING));
-	var cols = Math.floor(width / (CELL_SIZE + CELL_SPACING));
+	var rows = Math.floor(height / CELL_SIZE);
+	var cols = Math.floor(width / CELL_SIZE);
 
 	cells = new Array(rows);
 	for (var i = 0; i < cells.length; i++) {
@@ -146,8 +144,8 @@ function Cell(row, column, state) {
 
 	this.draw = function(screen) {
 		if (this.entity_ == null) {
-			var paintX = this.column_ * CELL_SIZE + (this.column_ + 1) * CELL_SPACING;
-			var paintY = this.row_ * CELL_SIZE + (this.row_ + 1) * CELL_SPACING;
+			var paintX = this.column_ * CELL_SIZE;
+			var paintY = this.row_ * CELL_SIZE;
 
 			this.entity_ = screen.rect(paintX, paintY, CELL_SIZE, CELL_SIZE, 0);
 			this.entity_.attr({fill: "#000", stroke: "none"});
