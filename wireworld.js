@@ -134,6 +134,7 @@ function render() {
 }
 
 function Cell(row, column, state) {
+	this.lastState_ = null;
 	this.currentState_ = state;
 	this.nextState_ = state;
 
@@ -143,6 +144,13 @@ function Cell(row, column, state) {
 	this.entity_ = null;
 
 	this.draw = function(screen) {
+		// If the state hasn't changed, don't bother redrawing anything
+		if (this.lastState_ == this.currentState_) {
+			return;
+		}
+
+		this.lastState_ = this.currentState_;
+
 		if (this.entity_ == null) {
 			var paintX = this.column_ * CELL_SIZE;
 			var paintY = this.row_ * CELL_SIZE;
