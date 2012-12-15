@@ -33,11 +33,55 @@ window.onload = function() {
 		}
 	}
 
-	update();
+	render();
 }
 
 function update() {
-	render();
+	for (var row = 0; row < cells.length; row++) {
+		for (var column = 0; column < cells[row].length; column++) {
+			var cell = cells[row][column];
+
+			if (cell.state_ == State.ELECTRON_HEAD) {
+				cell.state_ = State.ELECTRON_TAIL;
+			} else if (cell.state_ == State.ELECTRON_TAIL) {
+				cell.state_ = State.CONDUCTOR;
+			} else if (cell.state_ == State.CONDUCTOR) {
+				// Check neighbors for a cell in state ELECTRON_HEAD
+				function validPosition(row, column) {
+					return row >= 0 && column >= 0 && row < cells.length && column < cells[row].length;
+				}
+
+				function countNeighbors(row, column, type) {
+					var numberOfNeighors = 0;
+
+					for (var i = -1; i <= 1; i++) {
+						for (var j = -1; j <= 1; j++) {
+							if (i == 0 && j == 0) {
+								continue;
+							}
+
+							var r = row + i;
+							var c = column + j;
+
+							if (validPosition(r, c) && cells[r][c].state_ == type) {
+								numberOfNeighors++;
+							}
+						}
+					}
+
+					return numberOfNeighors;
+				}
+
+				var numberOfNeighors = countNeighbors(row, column, State.ELECTRON_HEAD);
+
+				if (numberOfNeighors == 1 || numberOfNeighors == 2) {
+					cell.state_ = State.ELECTRON_HEAD;
+				}
+			}
+
+			cell.draw(screen);
+		}
+	}
 }
 
 function render() {
