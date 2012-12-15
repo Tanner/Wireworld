@@ -43,8 +43,8 @@ function update() {
 function render() {
 	screen.clear();
 	
-	for (var row = 0; row < CELL_ROWS; row++) {
-		for (var column = 0; column < CELL_COLS; column++) {
+	for (var row = 0; row < cells.length; row++) {
+		for (var column = 0; column < cells[row].length; column++) {
 			var cell = cells[row][column];
 
 			cell.draw(screen);
