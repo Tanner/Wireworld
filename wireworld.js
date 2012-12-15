@@ -41,11 +41,19 @@ function update() {
 		for (var column = 0; column < cells[row].length; column++) {
 			var cell = cells[row][column];
 
-			if (cell.state_ == State.ELECTRON_HEAD) {
-				cell.state_ = State.ELECTRON_TAIL;
-			} else if (cell.state_ == State.ELECTRON_TAIL) {
-				cell.state_ = State.CONDUCTOR;
-			} else if (cell.state_ == State.CONDUCTOR) {
+			cell.currentState_ = cell.nextState_;
+		}
+	}
+
+	for (var row = 0; row < cells.length; row++) {
+		for (var column = 0; column < cells[row].length; column++) {
+			var cell = cells[row][column];
+
+			if (cell.nextState_ == State.ELECTRON_HEAD) {
+				cell.nextState_ = State.ELECTRON_TAIL;
+			} else if (cell.nextState_ == State.ELECTRON_TAIL) {
+				cell.nextState_ = State.CONDUCTOR;
+			} else if (cell.nextState_ == State.CONDUCTOR) {
 				// Check neighbors for a cell in state ELECTRON_HEAD
 				function validPosition(row, column) {
 					return row >= 0 && column >= 0 && row < cells.length && column < cells[row].length;
@@ -63,7 +71,7 @@ function update() {
 							var r = row + i;
 							var c = column + j;
 
-							if (validPosition(r, c) && cells[r][c].state_ == type) {
+							if (validPosition(r, c) && cells[r][c].currentState_ == type) {
 								numberOfNeighors++;
 							}
 						}
@@ -75,7 +83,7 @@ function update() {
 				var numberOfNeighors = countNeighbors(row, column, State.ELECTRON_HEAD);
 
 				if (numberOfNeighors == 1 || numberOfNeighors == 2) {
-					cell.state_ = State.ELECTRON_HEAD;
+					cell.nextState_ = State.ELECTRON_HEAD;
 				}
 			}
 
@@ -97,7 +105,8 @@ function render() {
 }
 
 function Cell(row, column, state) {
-	this.state_ = state;
+	this.currentState_ = state;
+	this.nextState_ = state;
 
 	this.row_ = row;
 	this.column_ = column;
@@ -114,19 +123,20 @@ function Cell(row, column, state) {
 
 			(function(cell) {
 				cell.entity_.node.onclick = function() {
-					cell.state_ = (cell.state_ + 1) % Object.keys(State).length;
+					cell.currentState_ = (cell.currentState_ + 1) % Object.keys(State).length;
+					cell.nextState_ = cell.currentState_;
 
 					cell.draw(screen);
 				};
 
 				cell.entity_.node.onmouseover = function() {
-					if (cell.state_ == State.EMPTY) {
+					if (cell.currentState_ == State.EMPTY) {
 						cell.entity_.attr({fill: "#444", stroke: "none"});
 					}
 				};
 
 				cell.entity_.node.onmouseout = function() {
-					if (cell.state_ == State.EMPTY) {
+					if (cell.currentState_ == State.EMPTY) {
 						cell.entity_.attr({fill: "#000", stroke: "none"});
 					}
 				};
@@ -135,11 +145,11 @@ function Cell(row, column, state) {
 
 		var color = "#000";
 
-		if (this.state_ == State.ELECTRON_HEAD) {
+		if (this.currentState_ == State.ELECTRON_HEAD) {
 			color = "#F00";
-		} else if (this.state_ == State.ELECTRON_TAIL) {
+		} else if (this.currentState_ == State.ELECTRON_TAIL) {
 			color = "#00F";
-		} else if (this.state_ == State.CONDUCTOR) {
+		} else if (this.currentState_ == State.CONDUCTOR) {
 			color = "#003107";
 		}
 
