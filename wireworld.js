@@ -67,6 +67,14 @@ function Cell(row, column, state) {
 
 			this.entity_ = screen.rect(paintX, paintY, CELL_SIZE, CELL_SIZE, 0);
 			this.entity_.attr({fill: "#000", stroke: "none"});
+
+			var cell = this;
+
+			this.entity_.node.onclick = function() {
+				cell.state_ = (cell.state_ + 1) % Object.keys(State).length;
+
+				cell.draw(screen);
+			};
 		}
 
 		var color = "#000";
