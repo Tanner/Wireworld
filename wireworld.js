@@ -29,7 +29,7 @@ window.onload = function() {
 		cells[i] = new Array(cols);
 		
 		for (var j = 0; j < cells[i].length; j++) {
-			cells[i][j] = new Cell(i, j, State.CONDUCTOR);
+			cells[i][j] = new Cell(i, j, State.EMPTY);
 		}
 	}
 
