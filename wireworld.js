@@ -10,6 +10,7 @@ State = {
 }
 
 var cells;
+var interval;
 
 var screen, width, height;
 
@@ -36,7 +37,22 @@ window.onload = function() {
 	render();
 }
 
-function update() {
+function run() {
+	if (interval) {
+		document.getElementById("play").children[0].className = "icon-play";
+		document.getElementById("step").className = "btn";
+
+		clearInterval(interval);
+		interval = null;
+	} else {
+		document.getElementById("play").children[0].className = "icon-stop";
+		document.getElementById("step").className = "btn disabled";
+
+		interval = window.setInterval(step, 250);
+	}
+}
+
+function step() {
 	for (var row = 0; row < cells.length; row++) {
 		for (var column = 0; column < cells[row].length; column++) {
 			var cell = cells[row][column];
