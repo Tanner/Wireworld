@@ -1,5 +1,11 @@
 const CELL_SIZE = 10;
 
+Mode = {
+	STOP : 0,
+	RUN : 1,
+	FAST : 2,
+}
+
 State = {
 	EMPTY : 0,
 	CONDUCTOR : 1,
@@ -9,6 +15,7 @@ State = {
 
 var cells;
 var interval;
+var currentMode = Mode.STOP;
 
 var screen, width, height;
 
@@ -35,19 +42,26 @@ window.onload = function() {
 	render();
 }
 
-function run() {
+function stop() {
 	if (interval) {
-		document.getElementById("play").children[0].className = "icon-play";
-		document.getElementById("step").className = "btn";
-
 		clearInterval(interval);
-		interval = null;
-	} else {
-		document.getElementById("play").children[0].className = "icon-stop";
-		document.getElementById("step").className = "btn disabled";
-
-		interval = window.setInterval(step, 250);
 	}
+
+	currentMode = Mode.STOP;
+
+	document.getElementById("run").className = "btn";
+	document.getElementById("step").className = "btn";
+	document.getElementById("fast").className = "btn";
+}
+
+function run() {
+	currentMode = Mode.RUN;
+
+	document.getElementById("run").className = "btn disabled";
+	document.getElementById("step").className = "btn disabled";
+	document.getElementById("fast").className = "btn disabled";
+
+	interval = window.setInterval(step, 250);
 }
 
 function step() {
@@ -104,6 +118,30 @@ function step() {
 			cell.draw(screen);
 		}
 	}
+}
+
+function fast() {
+	currentMode = Mode.FAST;
+
+	(function() {
+		var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+			window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+		window.requestAnimationFrame = requestAnimationFrame;
+	})();
+
+	var refresh = function() {
+		step();
+
+		if (currentMode == Mode.FAST) {
+			requestAnimationFrame(refresh);
+		}
+	}
+
+	document.getElementById("run").className = "btn disabled";
+	document.getElementById("step").className = "btn disabled";
+	document.getElementById("fast").className = "btn disabled";
+
+	requestAnimationFrame(refresh);
 }
 
 function trash() {
