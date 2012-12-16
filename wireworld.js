@@ -57,6 +57,10 @@ function stop() {
 }
 
 function run() {
+	if (currentMode != Mode.STOP) {
+		return;
+	}
+
 	currentMode = Mode.RUN;
 
 	document.getElementById("run").className = "btn disabled";
@@ -123,6 +127,10 @@ function step() {
 }
 
 function fast() {
+	if (currentMode != Mode.STOP) {
+		return;
+	}
+	
 	currentMode = Mode.FAST;
 
 	(function() {
