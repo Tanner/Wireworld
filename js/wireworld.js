@@ -273,7 +273,7 @@ function Cell(row, column, state, screen) {
 	this.draw = function(force) {
 		// If the state hasn't changed, don't bother redrawing anything only if we're not forced
 		if (this.lastState_ == this.currentState_) {
-			if (force == false) {
+			if (force == undefined || force == false) {
 				return;	
 			}
 		}
