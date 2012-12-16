@@ -28,6 +28,7 @@
 	</div>
 	<div id="data">
 		<button type="button" class="btn" id="export" onclick="show_export()"><i class="icon-download"></i></button>
+		<button type="button" class="btn" id="import" onclick="show_import()"><i class="icon-upload"></i></button>
 	</div>
 </div>
 
@@ -41,6 +42,20 @@
 	</div>
 	<div class="modal-footer">
 		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	</div>
+</div>
+
+<div class="modal hide fade" id="import-modal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Import Wireworld</h3>
+	</div>
+	<div class="modal-body">
+		<textarea cols="1" rows="1"></textarea>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button class="btn btn-primary" onclick="modal_import()">Import</button>
 	</div>
 </div>
 

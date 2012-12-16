@@ -209,6 +209,24 @@ function export_world() {
 	return JSON.stringify(exported);	
 }
 
+function import_world(json) {
+	var data = JSON.parse(json);
+
+	// Clear the screen
+	trash();
+
+	// Add all the imported data back
+	for (var i = 0; i < data.length; i++) {
+		var entry = data[i];
+		var cell = cells[entry.row][entry.column];
+
+		cell.currentState_ = entry.state;
+		cell.nextState_ = cell.currentState_;
+
+		cell.draw(screen);
+	}
+}
+
 function render() {
 	screen.clear();
 	
@@ -225,6 +243,16 @@ function show_export() {
 	$('#export-modal textarea').text(export_world());
 
 	$('#export-modal').modal('show');
+}
+
+function show_import() {
+	$('#import-modal').modal('show');
+}
+
+function modal_import() {
+	import_world($('#import-modal textarea').val());
+
+	$('#import-modal').modal('hide');
 }
 
 function Cell(row, column, state) {

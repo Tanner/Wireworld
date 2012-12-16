@@ -34,7 +34,7 @@ body, html {
 	margin-top: 4px;
 }
 
-#export-modal .modal-body textarea {
+.modal-body textarea {
 	box-sizing: border-box;
 
 	height: 300px;
