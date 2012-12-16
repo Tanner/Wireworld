@@ -44,7 +44,7 @@ window.onload = function() {
 
 function stop() {
 	if (interval) {
-		clearInterval(interval);
+		window.clearInterval(interval);
 	}
 
 	currentMode = Mode.STOP;
