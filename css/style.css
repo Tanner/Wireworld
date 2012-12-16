@@ -30,6 +30,10 @@ body, html {
 	margin-top: 10px;
 }
 
+#data {
+	margin-top: 4px;
+}
+
 #export-modal .modal-body textarea {
 	box-sizing: border-box;
 
