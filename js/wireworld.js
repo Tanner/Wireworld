@@ -221,6 +221,12 @@ function render() {
 	}
 }
 
+function show_export() {
+	$('#export-modal textarea').text(export_world());
+
+	$('#export-modal').modal('show');
+}
+
 function Cell(row, column, state) {
 	this.lastState_ = null;
 	this.currentState_ = state;

@@ -29,3 +29,10 @@ body, html {
 #controls {
 	margin-top: 10px;
 }
+
+#export-modal .modal-body textarea {
+	box-sizing: border-box;
+
+	height: 300px;
+	width: 100%;
+}
