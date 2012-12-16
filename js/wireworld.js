@@ -357,3 +357,7 @@ key('f, ;', function() {
 		selectedCell.draw(screen);
 	}
 });
+
+key('right', function() {
+	step();
+});
