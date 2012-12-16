@@ -179,6 +179,26 @@ function trash() {
 	}
 }
 
+function export_world() {
+	var exported = [];
+
+	for (var row = 0; row < cells.length; row++) {
+		for (var column = 0; column < cells[row].length; column++) {
+			var cell = cells[row][column];
+
+			if (cell.currentState_ != State.EMPTY) {
+				exported.push({
+					row: cell.row_,
+					column: cell.column_,
+					state: cell.currentState_
+				});
+			}
+		}
+	}
+
+	return JSON.stringify(exported);	
+}
+
 function render() {
 	screen.clear();
 	
