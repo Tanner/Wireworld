@@ -144,6 +144,26 @@ function fast() {
 	requestAnimationFrame(refresh);
 }
 
+function reset() {
+	for (var row = 0; row < cells.length; row++) {
+		for (var column = 0; column < cells[row].length; column++) {
+			var cell = cells[row][column];
+
+			if (cell.currentState_ == State.ELECTRON_HEAD || cell.currentState_ == State.ELECTRON_TAIL) {
+				cell.currentState_ = State.CONDUCTOR;
+
+				cell.draw(screen);
+			}
+
+			if (cell.nextState_ == State.ELECTRON_HEAD || cell.nextState_ == State.ELECTRON_TAIL) {
+				cell.nextState_ = State.CONDUCTOR;
+
+				cell.draw(screen);
+			}
+		}
+	}
+}
+
 function trash() {
 	for (var row = 0; row < cells.length; row++) {
 		for (var column = 0; column < cells[row].length; column++) {
