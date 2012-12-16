@@ -319,11 +319,11 @@ function Cell(row, column, state, screen) {
 			color = "#555";
 		} else {
 			if (this.currentState_ == State.ELECTRON_HEAD) {
-				color = "#F00";
+				color = "#FFF";
 			} else if (this.currentState_ == State.ELECTRON_TAIL) {
-				color = "#00F";
+				color = "#0f80f7";
 			} else if (this.currentState_ == State.CONDUCTOR) {
-				color = "#003107";
+				color = "#ff882c";
 			}
 		}
 
