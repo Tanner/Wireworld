@@ -262,16 +262,20 @@ function Cell(row, column, state, screen) {
 	this.currentState_ = state;
 	this.nextState_ = state;
 
+	this.hover_ = false;
+
 	this.row_ = row;
 	this.column_ = column;
 
 	this.entity_ = null;
 	this.screen_ = screen;
 
-	this.draw = function() {
-		// If the state hasn't changed, don't bother redrawing anything
+	this.draw = function(force) {
+		// If the state hasn't changed, don't bother redrawing anything only if we're not forced
 		if (this.lastState_ == this.currentState_) {
-			return;
+			if (force == false) {
+				return;	
+			}
 		}
 
 		this.lastState_ = this.currentState_;
@@ -294,29 +298,33 @@ function Cell(row, column, state, screen) {
 				cell.entity_.node.onmouseover = function() {
 					selectedCell = cell;
 
-					if (cell.currentState_ == State.EMPTY) {
-						cell.entity_.attr({fill: "#444", stroke: "none"});
-					}
+					cell.hover_ = true;
+
+					cell.draw(true);
 				};
 
 				cell.entity_.node.onmouseout = function() {
 					selectedCell = null;
 
-					if (cell.currentState_ == State.EMPTY) {
-						cell.entity_.attr({fill: "#000", stroke: "none"});
-					}
+					cell.hover_ = false;
+
+					cell.draw(true);
 				};
 			})(this);
 		}
 
 		var color = "#000";
 
-		if (this.currentState_ == State.ELECTRON_HEAD) {
-			color = "#F00";
-		} else if (this.currentState_ == State.ELECTRON_TAIL) {
-			color = "#00F";
-		} else if (this.currentState_ == State.CONDUCTOR) {
-			color = "#003107";
+		if (this.hover_) {
+			color = "#555";
+		} else {
+			if (this.currentState_ == State.ELECTRON_HEAD) {
+				color = "#F00";
+			} else if (this.currentState_ == State.ELECTRON_TAIL) {
+				color = "#00F";
+			} else if (this.currentState_ == State.CONDUCTOR) {
+				color = "#003107";
+			}
 		}
 
 		this.entity_.attr({fill: color, stroke: "none"});
