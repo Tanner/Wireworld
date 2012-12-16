@@ -17,6 +17,8 @@ var cells;
 var interval;
 var currentMode = Mode.STOP;
 
+var selectedCell = null;
+
 var screen, width, height;
 
 window.onload = function() {
@@ -289,12 +291,16 @@ function Cell(row, column, state) {
 				};
 
 				cell.entity_.node.onmouseover = function() {
+					selectedCell = cell;
+
 					if (cell.currentState_ == State.EMPTY) {
 						cell.entity_.attr({fill: "#444", stroke: "none"});
 					}
 				};
 
 				cell.entity_.node.onmouseout = function() {
+					selectedCell = null;
+
 					if (cell.currentState_ == State.EMPTY) {
 						cell.entity_.attr({fill: "#000", stroke: "none"});
 					}
@@ -315,3 +321,39 @@ function Cell(row, column, state) {
 		this.entity_.attr({fill: color, stroke: "none"});
 	}
 }
+
+key('a, j', function() {
+	if (selectedCell) {
+		selectedCell.currentState_ = State.CONDUCTOR;
+		selectedCell.nextState_ = selectedCell.currentState_;
+
+		selectedCell.draw(screen);
+	}
+});
+
+key('s, k', function() {
+	if (selectedCell) {
+		selectedCell.currentState_ = State.EMPTY;
+		selectedCell.nextState_ = selectedCell.currentState_;
+
+		selectedCell.draw(screen);
+	}
+});
+
+key('d, l', function() {
+	if (selectedCell) {
+		selectedCell.currentState_ = State.ELECTRON_HEAD;
+		selectedCell.nextState_ = selectedCell.currentState_;
+
+		selectedCell.draw(screen);
+	}
+});
+
+key('f, ;', function() {
+	if (selectedCell) {
+		selectedCell.currentState_ = State.ELECTRON_TAIL;
+		selectedCell.nextState_ = selectedCell.currentState_;
+
+		selectedCell.draw(screen);
+	}
+});
