@@ -362,15 +362,15 @@ function Cell(row, column, state, screen) {
 		if (this.hover_) {
 			color = "#555";
 		} else {
-			if (this.currentState_ == State.ELECTRON_HEAD) {
-				color = "#FFF";
-			} else if (this.currentState_ == State.ELECTRON_TAIL) {
-				color = "#0f80f7";
-			} else if (this.currentState_ == State.CONDUCTOR) {
-				color = "#ff882c";
-			}
-
-			if (this.type_ == Type.BUTTON_A) {
+			if (this.type_ == Type.NORMAL) {
+				if (this.currentState_ == State.ELECTRON_HEAD) {
+					color = "#FFF";
+				} else if (this.currentState_ == State.ELECTRON_TAIL) {
+					color = "#0f80f7";
+				} else if (this.currentState_ == State.CONDUCTOR) {
+					color = "#ff882c";
+				}
+			} else if (this.type_ == Type.BUTTON_A) {
 				color = "#910ff7";
 			} else if (this.type_ == Type.BUTTON_B) {
 				color = "#0ff7ad";
