@@ -9,6 +9,9 @@ Mode = {
 Type = {
 	NORMAL : 0,
 	BUTTON_A : 1,
+	BUTTON_B : 2,
+	BUTTON_C : 3,
+	BUTTON_D : 4,
 }
 
 State = {
@@ -144,8 +147,16 @@ function step() {
 						return;
 					}
 
-					if (cells[r][c].type_ == Type.BUTTON_A && key.isPressed('1') && !key.shift) {
-						buttonActive = true;
+					if (!key.shift) {
+						if (cells[r][c].type_ == Type.BUTTON_A && key.isPressed('1')) {
+							buttonActive = true;
+						} else if (cells[r][c].type_ == Type.BUTTON_B && key.isPressed('2')) {
+							buttonActive = true;
+						} else if (cells[r][c].type_ == Type.BUTTON_C && key.isPressed('3')) {
+							buttonActive = true;
+						} else if (cells[r][c].type_ == Type.BUTTON_D && key.isPressed('4')) {
+							buttonActive = true;
+						}
 					}
 				});
 
@@ -361,6 +372,12 @@ function Cell(row, column, state, screen) {
 
 			if (this.type_ == Type.BUTTON_A) {
 				color = "#910ff7";
+			} else if (this.type_ == Type.BUTTON_B) {
+				color = "#0ff7ad";
+			} else if (this.type_ == Type.BUTTON_C) {
+				color = "#d2f70f";
+			} else if (this.type_ == Type.BUTTON_D) {
+				color = "#f7150f";
 			}
 		}
 
@@ -404,14 +421,30 @@ key('f, ;', function() {
 	}
 });
 
-key('shift+1', function() {
+function toggleButton(buttonType) {
 	if (selectedCell) {
-		if (selectedCell.type_ == Type.BUTTON_A) {
+		if (selectedCell.type_ == buttonType) {
 			selectedCell.type_ = Type.NORMAL;
 		} else {
-			selectedCell.type_ = Type.BUTTON_A;
+			selectedCell.type_ = buttonType;
 		}
-	}
+	}	
+}
+
+key('shift+1', function() {
+	toggleButton(Type.BUTTON_A);
+});
+
+key('shift+2', function() {
+	toggleButton(Type.BUTTON_B);
+});
+
+key('shift+3', function() {
+	toggleButton(Type.BUTTON_C);
+});
+
+key('shift+4', function() {
+	toggleButton(Type.BUTTON_D);
 });
 
 key('right', function() {
