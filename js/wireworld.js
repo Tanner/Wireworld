@@ -6,6 +6,11 @@ Mode = {
 	FAST : 2,
 }
 
+Type = {
+	NORMAL : 0,
+	BUTTON_A : 1,
+}
+
 State = {
 	EMPTY : 0,
 	CONDUCTOR : 1,
@@ -124,9 +129,27 @@ function step() {
 					return numberOfNeighors;
 				}
 
+				// Are having a neighbor around us that is an ELECTRON_HEAD?
 				var numberOfNeighors = countNeighbors(row, column, State.ELECTRON_HEAD);
 
 				if (numberOfNeighors == 1 || numberOfNeighors == 2) {
+					cell.nextState_ = State.ELECTRON_HEAD;
+				}
+
+				// Is there a button around us that is active?
+				var buttonActive = false;
+
+				neighborFunction(row, column, function(r, c) {
+					if (buttonActive) {
+						return;
+					}
+
+					if (cells[r][c].type_ == Type.BUTTON_A && key.isPressed('1') && !key.shift) {
+						buttonActive = true;
+					}
+				});
+
+				if (buttonActive) {
 					cell.nextState_ = State.ELECTRON_HEAD;
 				}
 			}
@@ -272,6 +295,8 @@ function Cell(row, column, state, screen) {
 
 	this.hover_ = false;
 
+	this.type_ = Type.NORMAL;
+
 	this.row_ = row;
 	this.column_ = column;
 
@@ -333,6 +358,10 @@ function Cell(row, column, state, screen) {
 			} else if (this.currentState_ == State.CONDUCTOR) {
 				color = "#ff882c";
 			}
+
+			if (this.type_ == Type.BUTTON_A) {
+				color = "#910ff7";
+			}
 		}
 
 		this.entity_.attr({fill: color, stroke: "none"});
@@ -372,6 +401,16 @@ key('f, ;', function() {
 		selectedCell.nextState_ = selectedCell.currentState_;
 
 		selectedCell.draw();
+	}
+});
+
+key('shift+1', function() {
+	if (selectedCell) {
+		if (selectedCell.type_ == Type.BUTTON_A) {
+			selectedCell.type_ = Type.NORMAL;
+		} else {
+			selectedCell.type_ = Type.BUTTON_A;
+		}
 	}
 });
 
