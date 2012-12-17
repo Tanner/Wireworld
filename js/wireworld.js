@@ -95,9 +95,7 @@ function step() {
 					return row >= 0 && column >= 0 && row < cells.length && column < cells[row].length;
 				}
 
-				function countNeighbors(row, column, type) {
-					var numberOfNeighors = 0;
-
+				function neighborFunction(row, column, action) {
 					for (var i = -1; i <= 1; i++) {
 						for (var j = -1; j <= 1; j++) {
 							if (i == 0 && j == 0) {
@@ -107,11 +105,21 @@ function step() {
 							var r = row + i;
 							var c = column + j;
 
-							if (validPosition(r, c) && cells[r][c].currentState_ == type) {
-								numberOfNeighors++;
+							if (validPosition(r, c)) {
+								action(r, c);
 							}
 						}
 					}
+				}
+
+				function countNeighbors(row, column, type) {
+					var numberOfNeighors = 0;
+
+					neighborFunction(row, column, function(r, c) {
+						if (cells[r][c].currentState_ == type) {
+							numberOfNeighors++;
+						}
+					});
 
 					return numberOfNeighors;
 				}
