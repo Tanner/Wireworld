@@ -50,6 +50,6 @@ Examples
 --------
 Examples can be imported from the JSON provided in the examples/ directory.
 
-Examples provided from [Quinapalus - Wireworld Computer](http://www.quinapalus.com/wi-index.html).
+Examples provided from [Quinapalus - Wireworld Computer](http://www.quinapalus.com/wi-index.html) and [Karl Scherer](http://karlscherer.com/Wireworld.html).
 
 If you have any more examples you'd like to contribute, make a pull request.
