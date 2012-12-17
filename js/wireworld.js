@@ -8,10 +8,11 @@ Mode = {
 
 Type = {
 	NORMAL : 0,
-	BUTTON_A : 1,
-	BUTTON_B : 2,
-	BUTTON_C : 3,
-	BUTTON_D : 4,
+	LIGHT : 1,
+	BUTTON_A : 2,
+	BUTTON_B : 3,
+	BUTTON_C : 4,
+	BUTTON_D : 5,
 }
 
 State = {
@@ -97,7 +98,7 @@ function step() {
 				cell.nextState_ = State.ELECTRON_TAIL;
 			} else if (cell.nextState_ == State.ELECTRON_TAIL) {
 				cell.nextState_ = State.CONDUCTOR;
-			} else if (cell.nextState_ == State.CONDUCTOR) {
+			} else if (cell.nextState_ == State.CONDUCTOR || cell.type_ == Type.LIGHT) {
 				// Check neighbors for a cell in state ELECTRON_HEAD
 				function validPosition(row, column) {
 					return row >= 0 && column >= 0 && row < cells.length && column < cells[row].length;
@@ -163,6 +164,10 @@ function step() {
 				if (buttonActive) {
 					cell.nextState_ = State.ELECTRON_HEAD;
 				}
+
+				if (cell.nextState_ == State.ELECTRON_HEAD && cell.type_ == Type.LIGHT) {
+					cell.lit_ = true;
+				}
 			}
 
 			cell.draw();
@@ -211,6 +216,12 @@ function reset() {
 
 			if (cell.nextState_ == State.ELECTRON_HEAD || cell.nextState_ == State.ELECTRON_TAIL) {
 				cell.nextState_ = State.CONDUCTOR;
+
+				cell.draw();
+			}
+
+			if (cell.type_ == Type.LIGHT) {
+				cell.lit_ = false;
 
 				cell.draw();
 			}
@@ -305,6 +316,7 @@ function Cell(row, column, state, screen) {
 	this.nextState_ = state;
 
 	this.hover_ = false;
+	this.lit_ = false;
 
 	this.type_ = Type.NORMAL;
 
@@ -378,6 +390,12 @@ function Cell(row, column, state, screen) {
 				color = "#00f700";
 			} else if (this.type_ == Type.BUTTON_D) {
 				color = "#f7150f";
+			} else if (this.type_ == Type.LIGHT) {
+				if (this.lit_) {
+					color = "#e3df0e";
+				} else {
+					color = "#787607";
+				}
 			}
 		}
 
@@ -445,6 +463,10 @@ key('shift+3', function() {
 
 key('shift+4', function() {
 	toggleType(Type.BUTTON_D);
+});
+
+key('b', function() {
+	toggleType(Type.LIGHT);
 });
 
 key('right', function() {
