@@ -240,6 +240,12 @@ function trash() {
 
 				cell.draw();
 			}
+
+			if (cell.type_ != Type.NORMAL) {
+				cell.type_ = Type.NORMAL;
+
+				cell.draw(true);
+			}
 		}
 	}
 }
