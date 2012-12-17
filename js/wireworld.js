@@ -1,5 +1,10 @@
 const CELL_SIZE = 10;
 
+const BUTTON_A_KEY = '1';
+const BUTTON_B_KEY = '2';
+const BUTTON_C_KEY = '3';
+const BUTTON_D_KEY = '4';
+
 Mode = {
 	STOP : 0,
 	RUN : 1,
@@ -149,17 +154,18 @@ function step() {
 					}
 
 					if (!key.shift) {
-						if (cells[r][c].type_ == Type.BUTTON_A && key.isPressed('1')) {
+						if (cells[r][c].type_ == Type.BUTTON_A && key.isPressed(BUTTON_A_KEY)) {
 							buttonActive = true;
-						} else if (cells[r][c].type_ == Type.BUTTON_B && key.isPressed('2')) {
+						} else if (cells[r][c].type_ == Type.BUTTON_B && key.isPressed(BUTTON_B_KEY)) {
 							buttonActive = true;
-						} else if (cells[r][c].type_ == Type.BUTTON_C && key.isPressed('3')) {
+						} else if (cells[r][c].type_ == Type.BUTTON_C && key.isPressed(BUTTON_C_KEY)) {
 							buttonActive = true;
-						} else if (cells[r][c].type_ == Type.BUTTON_D && key.isPressed('4')) {
+						} else if (cells[r][c].type_ == Type.BUTTON_D && key.isPressed(BUTTON_D_KEY)) {
 							buttonActive = true;
 						}
 					}
 				});
+
 
 				if (buttonActive) {
 					cell.nextState_ = State.ELECTRON_HEAD;
@@ -455,19 +461,19 @@ function toggleType(type) {
 	}	
 }
 
-key('shift+1', function() {
+key('shift+' + BUTTON_A_KEY, function() {
 	toggleType(Type.BUTTON_A);
 });
 
-key('shift+2', function() {
+key('shift+' + BUTTON_B_KEY, function() {
 	toggleType(Type.BUTTON_B);
 });
 
-key('shift+3', function() {
+key('shift+' + BUTTON_C_KEY, function() {
 	toggleType(Type.BUTTON_C);
 });
 
-key('shift+4', function() {
+key('shift+' + BUTTON_D_KEY, function() {
 	toggleType(Type.BUTTON_D);
 });
 
