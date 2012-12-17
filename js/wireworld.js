@@ -125,7 +125,7 @@ function step() {
 					var numberOfNeighors = 0;
 
 					neighborFunction(row, column, function(r, c) {
-						if (cells[r][c].currentState_ == type) {
+						if (cells[r][c].currentState_ == type && cells[r][c].type_ == Type.NORMAL) {
 							numberOfNeighors++;
 						}
 					});
