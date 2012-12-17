@@ -421,30 +421,30 @@ key('f, ;', function() {
 	}
 });
 
-function toggleButton(buttonType) {
+function toggleType(type) {
 	if (selectedCell) {
-		if (selectedCell.type_ == buttonType) {
+		if (selectedCell.type_ == type) {
 			selectedCell.type_ = Type.NORMAL;
 		} else {
-			selectedCell.type_ = buttonType;
+			selectedCell.type_ = type;
 		}
 	}	
 }
 
 key('shift+1', function() {
-	toggleButton(Type.BUTTON_A);
+	toggleType(Type.BUTTON_A);
 });
 
 key('shift+2', function() {
-	toggleButton(Type.BUTTON_B);
+	toggleType(Type.BUTTON_B);
 });
 
 key('shift+3', function() {
-	toggleButton(Type.BUTTON_C);
+	toggleType(Type.BUTTON_C);
 });
 
 key('shift+4', function() {
-	toggleButton(Type.BUTTON_D);
+	toggleType(Type.BUTTON_D);
 });
 
 key('right', function() {
