@@ -32,6 +32,7 @@ var interval;
 var currentMode = Mode.STOP;
 
 var selectedCell = null;
+var buttonPushed = [];
 
 var screen, width, height;
 
@@ -154,18 +155,41 @@ function step() {
 					}
 
 					if (!key.shift) {
-						if (cells[r][c].type_ == Type.BUTTON_A && key.isPressed(BUTTON_A_KEY)) {
+						if (cells[r][c].type_ == Type.BUTTON_A && key.isPressed(BUTTON_A_KEY) && !buttonPushed[BUTTON_A_KEY]) {
 							buttonActive = true;
-						} else if (cells[r][c].type_ == Type.BUTTON_B && key.isPressed(BUTTON_B_KEY)) {
+
+							buttonPushed[BUTTON_A_KEY] = true;
+						} else if (cells[r][c].type_ == Type.BUTTON_B && key.isPressed(BUTTON_B_KEY) && !buttonPushed[BUTTON_B_KEY]) {
 							buttonActive = true;
-						} else if (cells[r][c].type_ == Type.BUTTON_C && key.isPressed(BUTTON_C_KEY)) {
+
+							buttonPushed[BUTTON_B_KEY] = true;
+						} else if (cells[r][c].type_ == Type.BUTTON_C && key.isPressed(BUTTON_C_KEY) && !buttonPushed[BUTTON_C_KEY]) {
 							buttonActive = true;
-						} else if (cells[r][c].type_ == Type.BUTTON_D && key.isPressed(BUTTON_D_KEY)) {
+
+							buttonPushed[BUTTON_C_KEY] = true;
+						} else if (cells[r][c].type_ == Type.BUTTON_D && key.isPressed(BUTTON_D_KEY) && !buttonPushed[BUTTON_D_KEY]) {
 							buttonActive = true;
+
+							buttonPushed[BUTTON_D_KEY] = true;
 						}
 					}
 				});
 
+				if (!key.isPressed(BUTTON_A_KEY) && buttonPushed[BUTTON_A_KEY]) {
+					buttonPushed[BUTTON_A_KEY] = false;
+				}
+
+				if (!key.isPressed(BUTTON_B_KEY) && buttonPushed[BUTTON_B_KEY]) {
+					buttonPushed[BUTTON_B_KEY] = false;
+				}
+
+				if (!key.isPressed(BUTTON_C_KEY) && buttonPushed[BUTTON_C_KEY]) {
+					buttonPushed[BUTTON_C_KEY] = false;
+				}
+
+				if (!key.isPressed(BUTTON_D_KEY) && buttonPushed[BUTTON_D_KEY]) {
+					buttonPushed[BUTTON_D_KEY] = false;
+				}
 
 				if (buttonActive) {
 					cell.nextState_ = State.ELECTRON_HEAD;
