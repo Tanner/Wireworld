@@ -373,9 +373,9 @@ function Cell(row, column, state, screen) {
 			} else if (this.type_ == Type.BUTTON_A) {
 				color = "#910ff7";
 			} else if (this.type_ == Type.BUTTON_B) {
-				color = "#0ff7ad";
+				color = "#140ff7";
 			} else if (this.type_ == Type.BUTTON_C) {
-				color = "#d2f70f";
+				color = "#00f700";
 			} else if (this.type_ == Type.BUTTON_D) {
 				color = "#f7150f";
 			}
