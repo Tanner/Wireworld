@@ -12,7 +12,7 @@ From left to right they are:
  - Run – Runs the simulation at 1 tick every 1/4 of a second
  - Step – Steps the simulation by 1 tick
  - Fast – Runs the simulation as fast as requestAnimationFrame will go
- - Reset – Removes all electrons from the simulation
+ - Reset – Removes all electrons and resets all lamps to 'off' from the simulation
  - Trash - Removes all non-empty cells from the simulation
 
 ### Setting a Cell State
