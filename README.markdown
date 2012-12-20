@@ -1,6 +1,6 @@
 Wireworld
 =========
-Wireworld is [Wireworld](http://en.wikipedia.org/wiki/Wireworld) built in HTML5 and [Raphael](http://raphaeljs.com/).
+[Wireworld](http://en.wikipedia.org/wiki/Wireworld) is a turning complete cellular automata built in HTML5 and [Raphael](http://raphaeljs.com/).
 
 Instructions
 ------------
