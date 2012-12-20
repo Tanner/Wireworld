@@ -32,10 +32,10 @@ Once it reaches the end it will wrap around, e.g. from Electron Tail back to Emp
 #### Keyboard
 Hovering over a cell and pressing one of four keyboard keys will cause the cell's state to be set.
 
- - a or j – Conductor
- - s or k - Empty
- - d or l - Electron Head
- - f or ; - Electron Tail
+ - `a` or `j` – Conductor
+ - `s` or `k` - Empty
+ - `d` or `l` - Electron Head
+ - `f` or `;` - Electron Tail
 
 Pressing a state key on a cell already of that state, will not cause the state to change.
 
@@ -44,17 +44,17 @@ Pressing a state key on a cell already of that state, will not cause the state t
 Buttons exist to make it easy to create an electron around any surrounding conductor. Essentially, it represents an Electron Head on command.
 
 ##### Adding / Removing
-You can add up to 4 different buttons by using pressing the Shift key and the number keys 1 to 4.
+You can add up to 4 different buttons by using pressing the `shift` key and a number key from `1` to `4`.
 
 Removing is the same key command.
 
 ##### Pushing
 You trigger a button press by pressing the corresponding button number while the simulation is running.
 
-e.g. To press a button created with Shift + 1, you press 1.
+e.g. To press a button created with `shift + 1`, you press `1`.
 
 #### Lamps
-You can add a simple indicator for whether an Electron Head has reached a certain part of the circuit by pressing b over any cell.
+You can add a simple indicator for whether an Electron Head has reached a certain part of the circuit by pressing `b` over any cell.
 
 Removing is the same key command.
 
@@ -67,7 +67,7 @@ You can see some examples of various circuits in the `examples` directory.
 
 Examples
 --------
-Examples can be imported from the JSON provided in the examples/ directory.
+Examples can be imported from the JSON provided in the `examples` directory.
 
 Examples provided from [Quinapalus - Wireworld Computer](http://www.quinapalus.com/wi-index.html) and [Karl Scherer](http://karlscherer.com/Wireworld.html).
 
