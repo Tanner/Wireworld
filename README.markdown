@@ -39,6 +39,25 @@ Hovering over a cell and pressing one of four keyboard keys will cause the cell'
 
 Pressing a state key on a cell already of that state, will not cause the state to change.
 
+### Special Cells
+#### Buttons
+Buttons exist to make it easy to create an electron around any surrounding conductor. Essentially, it represents an Electron Head on command.
+
+##### Adding / Removing
+You can add up to 4 different buttons by using pressing the Shift key and the number keys 1 to 4.
+
+Removing is the same key command.
+
+##### Pushing
+You trigger a button press by pressing the corresponding button number while the simulation is running.
+
+e.g. To press a button created with Shift + 1, you press 1.
+
+#### Lamps
+You can add a simple indicator for whether an Electron Head has reached a certain part of the circuit by pressing b over any cell.
+
+Removing is the same key command.
+
 ### Importing / Exporting
 You can import or export setups by using the two buttons below the simulation controls.
 
